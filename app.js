@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const feedRoutes = require('./routes/feed');
+const mealsRoutes = require('./routes/meals');
 
 const app = express();
 
@@ -15,6 +15,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/feed', feedRoutes);
+app.use('/meals', mealsRoutes);
 
 app.listen(8080);
