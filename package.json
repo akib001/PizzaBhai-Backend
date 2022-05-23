@@ -1,7 +1,7 @@
 {
-  "name": "Pizzabhai Backend",
+  "name": "Pizzabhai",
   "version": "1.0.0",
-  "description": "",
+  "description": "A food order app backend",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,6 +16,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "express-validator": "^6.14.1",
     "mongodb": "^4.6.0"
   },
   "devDependencies": {
