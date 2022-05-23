@@ -12,7 +12,9 @@ class Meal {
     const db = getDb();
     db.collection('meals')
       .insertOne(this)
-      .then((result) => console.log(result))
+      .then((result) => {
+        return result;
+      })
       .catch((err) => console.log(err));
   }
 
