@@ -1,27 +1,36 @@
-exports.getPosts = (req, res, next) => {
-  res.status(200).json({
-    meals: [
-      {
-        _id: '1',
-        title: 'Kacchi Biriyani',
-        price: '10',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia',
-        creator: {
-          name: 'Akib'
-        },
-        createdAt: new Date()
-      }
-    ]
-  });
-};
+const Meal = require('../models/meal');
 
-exports.createPost = (req, res, next) => {
+exports.getMeals = (req, res, next) => {
+  Meal.fetchAll(fetchedMeals => {
+   console.log('meal fetched'); 
+  // return res.status(200).json({
+  //   meals: [
+  //     {
+  //       title: fetchedMeals.title,
+  //       price: fetchedMeals.price,
+  //       description: fetchedMeals.description,
+  //       creator: {
+  //         name: 'Akib'
+  //       },
+  //       createdAt: new Date()
+  //     }
+  //   ]
+  // });
+})
+}
+
+exports.postAddMeal = (req, res, next) => {
   const title = req.body.title;
   const price = req.body.price;
   const description = req.body.description;
-  // Create post in db
-  res.status(201).json({
-    message: 'Post created successfully!',
-    post: { id: new Date().toISOString(), title: title, price: price, description: description }
-  });
+
+  const meal = new Meal(title, price, description);
+
+  meal.save()
+  .then(() => {
+    res.status(201).json({
+      message: 'Meal created successfully!',
+      post: { id: new Date().toISOString(), title: title, price: price, description: description }
+    });
+  }).catch(err => console.log(err));
 };
