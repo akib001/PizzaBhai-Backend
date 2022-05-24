@@ -1,5 +1,6 @@
 const Meal = require('../models/meal');
 const { validationResult } = require('express-validator/check');
+const getDb = require('../util/database').getDb;
 
 exports.fetchMeals = (req, res, next) => {
   Meal.fetchAll().then((fetchedMeals) => {

@@ -18,13 +18,13 @@ router.put(
     //     });
     //   })
       .normalizeEmail(),
-    body('password').trim().isLength({ min: 5 }),
+    body('password').trim().isLength({ min: 5 }).withMessage('Please enter a strong password.'),
     body('name').trim().not().isEmpty(),
   ],
   userController.userSignup
 );
 
-router.post('/user/login');
+router.post('/user/login', userController.userLogin);
 
 router.put('/admin/signup');
 
