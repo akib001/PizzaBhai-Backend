@@ -183,7 +183,7 @@ exports.adminSignup = (req, res, next) => {
 };
 
 
-exports.userLogin = (req, res, next) => {
+exports.adminLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -223,7 +223,7 @@ exports.userLogin = (req, res, next) => {
         'somesupersecretsecret',
         { expiresIn: '1h' }
       );
-      res.status(200).json({ token: token, userId: loadedUser._id.toString(), adminRole: false });
+      res.status(200).json({ token: token, userId: loadedUser._id.toString(), adminRole: true });
     })
     .catch((err) => {
       if (!err.statusCode) {

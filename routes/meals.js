@@ -2,6 +2,8 @@ const express = require('express');
 const mealsController = require('../controllers/meals');
 const { body } = require('express-validator/check');
 const router = express.Router();
+const isUser = require('../middleware/is-user');
+const isAdmin = require('../middleware/is-admin');
 
 // GET /feed/posts
 router.get('/fetch-meals', mealsController.fetchMeals);
@@ -9,6 +11,7 @@ router.get('/fetch-meals', mealsController.fetchMeals);
 // POST /feed/post
 router.post(
   '/add-meal',
+  isAdmin,
   [
     body('title')
       .isString()
