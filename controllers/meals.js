@@ -27,8 +27,9 @@ exports.postAddMeal = (req, res, next) => {
   const title = req.body.title;
   const price = req.body.price;
   const description = req.body.description;
+  const adminId = req.userId;
 
-  const meal = new Meal(title, price, description);
+  const meal = new Meal(title, price, description, adminId);
 
   meal.save();
 

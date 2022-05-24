@@ -101,11 +101,12 @@ exports.userLogin = (req, res, next) => {
         {
           email: loadedUser.email,
           userId: loadedUser._id.toString(),
+          adminRole: false
         },
         'somesupersecretsecret',
         { expiresIn: '1h' }
       );
-      res.status(200).json({ token: token, userId: loadedUser._id.toString(), adminRole: false });
+      res.status(200).json({ token: token, userId: loadedUser._id.toString()});
     })
     .catch((err) => {
       if (!err.statusCode) {
@@ -219,11 +220,12 @@ exports.adminLogin = (req, res, next) => {
         {
           email: loadedUser.email,
           userId: loadedUser._id.toString(),
+          adminRole: true
         },
         'somesupersecretsecret',
         { expiresIn: '1h' }
       );
-      res.status(200).json({ token: token, userId: loadedUser._id.toString(), adminRole: true });
+      res.status(200).json({ token: token, userId: loadedUser._id.toString() });
     })
     .catch((err) => {
       if (!err.statusCode) {
