@@ -38,4 +38,6 @@ router.post(
   mealsController.postAddMeal
 );
 
+router.post('/delete-meal', mealsController.postDeleteMeal);
+
 module.exports = router;

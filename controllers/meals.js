@@ -49,3 +49,21 @@ exports.postAddMeal = (req, res, next) => {
     next(err);
   })
 };
+
+exports.postDeleteMeal = (req, res, next) => {
+  const prodId = req.body.productId;
+
+  Meal.deleteById(prodId).then(result => {
+    res.status(201).json({
+      message: 'Meal deleted successfully!',
+      post: {
+        id: prodId,
+      },
+    })
+  }).catch(err => {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  })
+}
