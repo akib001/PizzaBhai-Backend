@@ -1,6 +1,7 @@
 const Meal = require('../models/meal');
 const { validationResult } = require('express-validator/check');
 const getDb = require('../util/database').getDb;
+const mongodb = require('mongodb');
 
 exports.fetchMeals = (req, res, next) => {
   Meal.fetchAll().then((fetchedMeals) => {
@@ -27,7 +28,7 @@ exports.postAddMeal = (req, res, next) => {
   const title = req.body.title;
   const price = req.body.price;
   const description = req.body.description;
-  const adminId = req.userId;
+  const adminId = new mongodb.ObjectId(req.userId);
 
   const meal = new Meal(title, price, description, adminId);
 

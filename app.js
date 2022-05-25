@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoConnect = require('./util/database').mongoConnect;
 const mealsRoutes = require('./routes/meals');
 const authRoutes = require('./routes/auth');
+const ordersRoutes = require('./routes/orders');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
 
 app.use('/meals', mealsRoutes);
 app.use('/auth', authRoutes);
+app.use('/orders', ordersRoutes);
 
 // error handler middleware
 app.use((error, req, res, next) => {

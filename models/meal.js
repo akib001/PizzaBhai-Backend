@@ -1,5 +1,4 @@
 const getDb = require('../util/database').getDb;
-const mongodb = require('mongodb');
 
 class Meal {
   constructor(title, price, description, adminId) {
