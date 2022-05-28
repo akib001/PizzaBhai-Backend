@@ -1,8 +1,9 @@
 const getDb = require('../util/database').getDb;
 
 class Meal {
-  constructor(title, price, description, adminId) {
+  constructor(title, imageUrl, price, description, adminId) {
     this.title = title;
+    this.imageUrl = imageUrl;
     this.price = price;
     this.description = description;
     this.adminId = adminId;

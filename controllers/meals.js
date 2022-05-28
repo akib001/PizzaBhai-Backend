@@ -26,11 +26,12 @@ exports.postAddMeal = (req, res, next) => {
   }
 
   const title = req.body.title;
+  const imageUrl = req.file.path;
   const price = req.body.price;
   const description = req.body.description;
   const adminId = new mongodb.ObjectId(req.userId);
 
-  const meal = new Meal(title, price, description, adminId);
+  const meal = new Meal(title, imageUrl, price, description, adminId);
 
   meal.save();
 
