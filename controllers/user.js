@@ -27,8 +27,6 @@ exports.userSignup = (req, res, next) => {
     .findOne({ email: email })
     .then((user) => {
 
-      
-
       // if E-Mail address already exists!
       if (user) {
         console.log(user)
@@ -74,7 +72,7 @@ exports.userSignup = (req, res, next) => {
 exports.userLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-
+  console.log(req.body)
   let loadedUser;
 
   const db = getDb();
@@ -104,9 +102,9 @@ exports.userLogin = (req, res, next) => {
           adminRole: false
         },
         'somesupersecretsecret',
-        { expiresIn: '1h' }
+        { expiresIn: '24h' }
       );
-      res.status(200).json({ token: token, userId: loadedUser._id.toString()});
+      res.status(200).json({ token: token, userId: loadedUser._id.toString(), email: email});
     })
     .catch((err) => {
       if (!err.statusCode) {
@@ -223,7 +221,7 @@ exports.adminLogin = (req, res, next) => {
           adminRole: true
         },
         'somesupersecretsecret',
-        { expiresIn: '1h' }
+        { expiresIn: '24h' }
       );
       res.status(200).json({ token: token, userId: loadedUser._id.toString() });
     })

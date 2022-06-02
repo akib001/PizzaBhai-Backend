@@ -3,46 +3,30 @@ const mongodb = require('mongodb');
 
 
 class Order {
-  constructor(userData, orderData) {
+  constructor(userData, orderData, totalOrderedPrice, totalOrderedQuantity) {
     this.userData = userData;
     this.orderData = orderData;
-    // this.orderSummary = orderSummary;
+    this.totalOrderedPrice = totalOrderedPrice;
+    this.totalOrderedQuantity = totalOrderedQuantity;
   }
 
   save() {
     const db = getDb();
     db.collection('orders')
       .insertOne(this)
-      // .then((result) => {
-      //   return db.collection('orders')
-      //     .find()
-      //     .toArray()
-      //     .then((orders) => {
-      //       const orderData = orders.orderData;
-      //       let totalAmount = 0;
-      //       let totalPrice = 0;
+      .catch((err) => console.log(err));
+  }
 
-      //       for (data in orderData) {
-      //         totalAmount = totalAmount + data.totalAmount;
-      //         totalPrice = totalPrice + data.totalPrice;
-      //       }
-
-      //       return db.collection('orders')
-      //         .updateOne({
-      //           $set: {
-      //             orderSummary: {
-      //               totalAmount: totalAmount,
-      //               totalPrice: totalPrice,
-      //             },
-      //           },
-      //         })
-              
-      //     })
-          
-      // })
-      // .then(result => {
-      //   return result;
-      // })
+  static fetchAll() {
+    const db = getDb();
+    return db
+      .collection('orders')
+      .find()
+      .toArray()
+      .then((orders) => {
+        console.log(orders);
+        return orders;
+      })
       .catch((err) => console.log(err));
   }
 }

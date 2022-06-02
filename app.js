@@ -2,10 +2,10 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoConnect = require('./util/database').mongoConnect;
+const multer = require('multer');
 const mealsRoutes = require('./routes/meals');
 const authRoutes = require('./routes/auth');
 const ordersRoutes = require('./routes/orders');
-const multer = require('multer');
 const app = express();
 
 
@@ -14,7 +14,7 @@ const fileStorage = multer.diskStorage({
       cb(null, 'images');
     },
     filename: (req, file, cb) => {
-      cb(null, new Date().toISOString() + '-' + file.originalname);
+      cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
     }
   });
   
@@ -37,7 +37,7 @@ app.use(bodyParser.json()); // application/json
 app.use(
     multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
   );
-  app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -57,7 +57,7 @@ app.use((error, req, res, next) => {
     const message = error.message;
     const data = error.data;
     res.status(status).json({ message: message, data: data });
-  });
+});
 
 mongoConnect(() => {
     app.listen(8080);

@@ -23,7 +23,7 @@ const loginValidation = [
 
 router.put('/user/signup',signupValidation, userController.userSignup);
 
-router.post('/user/login', loginValidation, userController.userLogin);
+router.post('/user/login', userController.userLogin);
 
 router.put('/admin/signup', signupValidation,userController.adminSignup);
 

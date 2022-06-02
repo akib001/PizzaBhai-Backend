@@ -7,7 +7,7 @@ const isAdmin = require('../middleware/is-admin');
 const addMealValidator = [
   body('title')
     .isString()
-    .isLength({ min: 5, max: 150 })
+    .isLength({ min: 3, max: 150 })
     .withMessage('Please enter a valid title.')
     .trim(),
 
@@ -37,6 +37,10 @@ router.post(
   addMealValidator,
   mealsController.postAddMeal
 );
+
+// PUT /meals/update-meal/:mealId
+
+router.put('/update-meal/:mealId', isAdmin, mealsController.updateMeal);
 
 router.post('/delete-meal', mealsController.postDeleteMeal);
 
