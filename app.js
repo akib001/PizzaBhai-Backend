@@ -61,6 +61,6 @@ app.use((error, req, res, next) => {
 });
 
 mongoConnect(() => {
-    app.listen(8080);
+    app.listen(process.env.port);
 });
   
