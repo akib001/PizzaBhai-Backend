@@ -68,20 +68,28 @@ exports.updateMeal = (req, res, next) => {
   }
 
   const title = req.body.title;
-  let imageUrl = req.file.image;
+  let imageUrl
   const price = req.body.price;
   const description = req.body.description;
   const adminId = new mongodb.ObjectId(req.body.adminId);
 
-  if (req.file) {
-    imageUrl = req.file.path;
+  if(req.file) {
+    console.log('image found')
+    imageUrl = req.file.image;
+    if (req.file) {
+      imageUrl = req.file.path;
+    }
+  
+    if (!imageUrl) {
+      const error = new Error('No file picked.');
+      error.statusCode = 422;
+      throw error;
+    }
+  } else {
+    console.log('no image found')
+    imageUrl = null;
   }
 
-  if (!imageUrl) {
-    const error = new Error('No file picked.');
-    error.statusCode = 422;
-    throw error;
-  }
 
   Meal.findById(mealId)
     .then((meal) => {
@@ -92,9 +100,18 @@ exports.updateMeal = (req, res, next) => {
       }
 
       if (imageUrl !== meal.imageUrl) {
-        clearImage(meal.imageUrl);
-      }
 
+        // if meal.imageUrl isn't null
+        if(meal.imageUrl && imageUrl) {
+          clearImage(meal.imageUrl);
+        } 
+    
+        if(imageUrl === null) {
+          imageUrl = meal.imageUrl
+        }
+      } 
+
+      console.log('image set ' + imageUrl)
 
       const updatedMeal = new Meal(title, imageUrl, price, description, adminId, mealId);
 
