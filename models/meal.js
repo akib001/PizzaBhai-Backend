@@ -56,11 +56,11 @@ class Meal {
       .catch((err) => console.log(err));
   }
 
-  static deleteById(prodId) {
+  static deleteById(mealId) {
     const db = getDb();
     return db
       .collection('meals')
-      .deleteOne({ _id: new mongodb.ObjectId(prodId) })
+      .deleteOne({ _id: new mongodb.ObjectId(mealId) })
       .then((result) => console.log(result))
       .catch((err) => console.log(err));
   }

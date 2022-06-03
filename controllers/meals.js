@@ -129,14 +129,16 @@ exports.updateMeal = (req, res, next) => {
 };
 
 exports.postDeleteMeal = (req, res, next) => {
-  const prodId = req.body.productId;
+  const mealId = req.params.mealId;
 
-  Meal.deleteById(prodId)
+  console.log('asdfasf'+ mealId);
+
+  Meal.deleteById(mealId)
     .then((result) => {
       res.status(201).json({
         message: 'Meal deleted successfully!',
         post: {
-          id: prodId,
+          id: mealId,
         },
       });
     })

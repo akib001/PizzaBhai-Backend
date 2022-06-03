@@ -42,6 +42,6 @@ router.post(
 
 router.put('/update-meal/:mealId', isAdmin, mealsController.updateMeal);
 
-router.post('/delete-meal', mealsController.postDeleteMeal);
+router.put('/delete-meal/:mealId', mealsController.postDeleteMeal);
 
 module.exports = router;
