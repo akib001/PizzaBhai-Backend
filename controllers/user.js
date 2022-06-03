@@ -101,7 +101,7 @@ exports.userLogin = (req, res, next) => {
           userId: loadedUser._id.toString(),
           adminRole: false
         },
-        'somesupersecretsecret',
+        process.env.accessTokenSecret,
         { expiresIn: '24h' }
       );
       res.status(200).json({ token: token, userId: loadedUser._id.toString(), email: email});
@@ -220,7 +220,7 @@ exports.adminLogin = (req, res, next) => {
           userId: loadedUser._id.toString(),
           adminRole: true
         },
-        'somesupersecretsecret',
+        process.env.accessTokenSecret,
         { expiresIn: '24h' }
       );
       res.status(200).json({ token: token, userId: loadedUser._id.toString() });

@@ -131,7 +131,18 @@ exports.updateMeal = (req, res, next) => {
 exports.postDeleteMeal = (req, res, next) => {
   const mealId = req.params.mealId;
 
-  console.log('asdfasf'+ mealId);
+  Meal.findById(mealId)
+      .then(meal => {
+        if(meal.imageUrl) {
+          clearImage(meal.imageUrl);
+        } 
+  })
+  .catch((err) => {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  });
 
   Meal.deleteById(mealId)
     .then((result) => {

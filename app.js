@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+require("dotenv").config();
 const bodyParser = require('body-parser');
 const mongoConnect = require('./util/database').mongoConnect;
 const multer = require('multer');
