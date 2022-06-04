@@ -4,6 +4,8 @@ require("dotenv").config();
 const bodyParser = require('body-parser');
 const mongoConnect = require('./util/database').mongoConnect;
 const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
 const mealsRoutes = require('./routes/meals');
 const authRoutes = require('./routes/auth');
 const ordersRoutes = require('./routes/orders');
@@ -51,6 +53,9 @@ app.use('/meals', mealsRoutes);
 app.use('/auth', authRoutes);
 app.use('/orders', ordersRoutes);
 
+app.use(helmet());
+app.use(compression());
+
 // error handler middleware
 app.use((error, req, res, next) => {
     console.log(error);
@@ -61,6 +66,6 @@ app.use((error, req, res, next) => {
 });
 
 mongoConnect(() => {
-    app.listen(process.env.port);
+    app.listen(process.env.PORT || 8080);
 });
   
