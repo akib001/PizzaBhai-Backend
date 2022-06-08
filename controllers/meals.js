@@ -31,19 +31,14 @@ exports.postAddMeal = (req, res, next) => {
     });
   }
 
-  if (!req.file) {
-    const error = new Error('No image provided');
-    error.statusCode = 422;
-    throw error;
-  }
-
   const title = req.body.title;
-  const imageUrl = req.file.path;
+  const imageUrl = req.body.imageUrl;
+  const fileName = req.body.fileName;
   const price = req.body.price;
   const description = req.body.description;
   const adminId = new mongodb.ObjectId(req.userId);
 
-  const meal = new Meal(title, imageUrl, price, description, adminId);
+  const meal = new Meal(title, imageUrl, fileName, price, description, adminId);
 
   meal.save();
 
