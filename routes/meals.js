@@ -30,11 +30,12 @@ const addMealValidator = [
 // GET /feed/posts
 router.get('/fetch-meals', mealsController.fetchMeals);
 
+
 // POST /meals/add-meal
 router.post(
   '/add-meal',
-  isAdmin,
   addMealValidator,
+  isAdmin,
   mealsController.postAddMeal
 );
 
