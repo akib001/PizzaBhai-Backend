@@ -2,9 +2,7 @@ const { validationResult } = require('express-validator/check');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mongodb = require('mongodb');
-
 const User = require('../models/user');
-const getDb = require('../util/database').getDb;
 
 exports.userSignup = (req, res, next) => {
   const errors = validationResult(req);
@@ -21,12 +19,8 @@ exports.userSignup = (req, res, next) => {
   const userRole = req.body.userRole;
   const adminRole = req.body.adminRole || false;
 
-  const db = getDb();
-
-  db.collection('users')
-    .findOne({ email: email })
+    User.findOne({ email: email })
     .then((user) => {
-
       // if E-Mail address already exists!
       if (user) {
         console.log(user)
@@ -47,7 +41,7 @@ exports.userSignup = (req, res, next) => {
         bcrypt
           .hash(password, 12)
           .then((hashedpw) => {
-            const user = new User(name, email, hashedpw, userRole, adminRole);
+            const user = new User({name, email, password: hashedpw, userRole, adminRole});
             user.save();
           })
           .then(() => {
@@ -75,10 +69,7 @@ exports.userLogin = (req, res, next) => {
   console.log(req.body)
   let loadedUser;
 
-  const db = getDb();
-
-  db.collection('users')
-    .findOne({ email: email })
+    User.findOne({ email: email })
     .then((user) => {
       if (!user) {
         const error = new Error('A user with this email could not be found.');
@@ -130,10 +121,7 @@ exports.adminSignup = (req, res, next) => {
   const userRole = req.body.userRole || false;
   const adminRole = req.body.adminRole;
 
-  const db = getDb();
-
-  db.collection('users')
-    .findOne({ email: email })
+    User.findOne({ email: email })
     .then((user) => {
       // if E-Mail address already exists!
       if (user) {
@@ -150,7 +138,7 @@ exports.adminSignup = (req, res, next) => {
         bcrypt
           .hash(password, 12)
           .then((hashedpw) => {
-            const user = new User(name, email, hashedpw, userRole, adminRole);
+            const user = new User({name, email, password: hashedpw, userRole, adminRole});
             user.save();
           })
           .then(() => {
@@ -169,7 +157,7 @@ exports.adminSignup = (req, res, next) => {
 
         const hashedPassword =  bcrypt.hash(password, 12)
   
-        db.collection('users')
+        User
         .updateOne({email: user.email}, { $set: {name: name, password: hashedPassword, adminRole: true}})
       }
     })
@@ -188,10 +176,7 @@ exports.adminLogin = (req, res, next) => {
 
   let loadedUser;
 
-  const db = getDb();
-
-  db.collection('users')
-    .findOne({ email: email })
+    User.findOne({ email: email })
     .then((user) => {
       if (!user) {
         const error = new Error('A user with this email could not be found.');

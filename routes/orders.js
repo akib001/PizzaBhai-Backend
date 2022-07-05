@@ -5,8 +5,8 @@ const isUser = require('../middleware/is-user');
 const ordersController = require('../controllers/orders');
 const isAdmin = require('../middleware/is-admin');
 
-router.post('/create-order', isUser, ordersController.postCreateOrder);
+// router.post('/create-order', isUser, ordersController.postCreateOrder);
 
-router.get('/fetch-orders', isUser, ordersController.fetchOrders)
+// router.get('/fetch-orders', isUser, ordersController.fetchOrders)
 
 module.exports = router;

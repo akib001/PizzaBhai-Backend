@@ -21,7 +21,7 @@ const loginValidation = [
   body('password').trim()
 ]
 
-router.put('/user/signup',signupValidation, userController.userSignup);
+router.put('/user/signup', signupValidation, userController.userSignup);
 
 router.post('/user/login', userController.userLogin);
 

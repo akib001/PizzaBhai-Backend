@@ -31,7 +31,7 @@ const addMealValidator = [
 router.get('/fetch-meals', mealsController.fetchMeals);
 
 
-// POST /meals/add-meal
+// // POST /meals/add-meal
 router.post(
   '/add-meal',
   addMealValidator,
@@ -39,10 +39,10 @@ router.post(
   mealsController.postAddMeal
 );
 
-// PUT /meals/update-meal/:mealId
+// // PUT /meals/update-meal/:mealId
 
-router.put('/update-meal/:mealId', isAdmin, mealsController.updateMeal);
+// router.put('/update-meal/:mealId', isAdmin, mealsController.updateMeal);
 
-router.put('/delete-meal/:mealId', mealsController.postDeleteMeal);
+// router.put('/delete-meal/:mealId', mealsController.postDeleteMeal);
 
 module.exports = router;
