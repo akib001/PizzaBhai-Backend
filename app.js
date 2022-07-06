@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const compression = require('compression');
 const mealsRoutes = require('./routes/meals');
 const authRoutes = require('./routes/auth');
-// const ordersRoutes = require('./routes/orders');
+const ordersRoutes = require('./routes/orders');
 const app = express();
 
 
@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 
 app.use('/meals', mealsRoutes);
 app.use('/auth', authRoutes);
-// app.use('/orders', ordersRoutes);
+app.use('/orders', ordersRoutes);
 
 app.use(helmet());
 app.use(compression());
@@ -39,7 +39,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    'mongodb+srv://akib:GPiDA6MPl9ep71Hx@node-tutorial.ps5lz.mongodb.net/pizzabhai?retryWrites=true'
+    `mongodb+srv:///${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASS}@node-tutorial.ps5lz.mongodb.net/pizzabhai?retryWrites=true`
   )
   .then(result => {
     app.listen(3000);
