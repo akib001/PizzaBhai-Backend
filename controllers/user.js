@@ -104,7 +104,7 @@ exports.userLogin = (req, res, next) => {
         process.env.accessTokenSecret,
         { expiresIn: '24h' }
       );
-      res.status(200).json({ token: token, userId: loadedUser._id.toString(), email: email});
+      res.status(200).json({ token: token, userId: loadedUser._id.toString(), email: email, name: loadedUser.name });
     })
     .catch((err) => {
       if (!err.statusCode) {
@@ -223,7 +223,7 @@ exports.adminLogin = (req, res, next) => {
         process.env.accessTokenSecret,
         { expiresIn: '24h' }
       );
-      res.status(200).json({ token: token, userId: loadedUser._id.toString() });
+      res.status(200).json({ token: token, userId: loadedUser._id.toString(), name: loadedUser.name });
     })
     .catch((err) => {
       if (!err.statusCode) {
